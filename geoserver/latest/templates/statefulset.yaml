@@ -95,7 +95,7 @@ spec:
               exec /tmp/entrypoint.sh
           env:
             - name: APP_LOCATION
-              value: "ROOT"
+              value: {{ .Values.geoserver.context_path | default "ROOT" | replace "/" "#" | quote }}
             - name: ENV_PROPERTIES
               value: /usr/local/tomcat/conf/environment.properties
             - name: ADMIN_PASSWORD
@@ -224,19 +224,19 @@ spec:
               protocol: TCP
           startupProbe:
             httpGet:
-              path: /index.html
+              path: /{{ .Values.geoserver.context_path | default "" }}/index.html
               port: http
             failureThreshold: 36
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /index.html
+              path: /{{ .Values.geoserver.context_path | default "" }}/index.html
               port: http
             initialDelaySeconds: 5
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /index.html
+              path: /{{ .Values.geoserver.context_path | default "" }}/index.html
               port: http
             successThreshold: 3
           resources:

@@ -155,6 +155,9 @@ postgis:
     database: geoserver
     user: geoserver
 geoserver:
+  # context path is the path prefix under which geoserver will handle requests.
+  # For "/", leave empty. Use "geoserver" for "/geoserver". Deeper paths using '/' are supported.
+  context_path: ""
   chown_datadir: false
 
   # space separated list of plugin URLs (see also this possibility below to format such string)
